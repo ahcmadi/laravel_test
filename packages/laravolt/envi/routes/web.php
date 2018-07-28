@@ -7,20 +7,30 @@ Route::group(
     [
     'namespace'  => '\Laravolt\Envi\Http\Controllers',
     'middleware' => ['web', 'auth'],
+    // 'middleware' => ['web',],
     'prefix'     => 'envi',
     'as'         => 'envi::',
     ],
     function ($router) {
-    	$router->get('test', function ()
+    	$router->get('/', function ()
     	{
     		// exit('test route');
     		return view('envi::test');
     	} );
     	// dd($router);
-        $router->get('coba', array(
-            'as' => 'show',
-            'uses' => 'CobaController@index',
-        ));
+        // $router->resource('/', array(
+        //     'as' => 'show',
+        //     'uses' => 'EnviController@index',
+        // ));
+        Route::resource('/setup', 'EnviController');
+        // $router->get('/', array(
+        //     'as' => 'show',
+        //     'uses' => 'EnviController@index',
+        // ));
+        // $router->post('save', array(
+        //     'as' => 'save',
+        //     'uses' => 'EnviController@save',
+        // ));
 
         // Route::post('/', array(
         //     'as' => 'store',

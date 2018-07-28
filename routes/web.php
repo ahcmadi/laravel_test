@@ -15,5 +15,8 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/home', function () {
+	// dd(env('DB_CONNECTION'));
     return view('home');
 });
+// Route::get('/test', ['uses' => 'TestController@index']);
+// Route::resource('/report', 'ReportsController');

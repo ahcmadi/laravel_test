@@ -1,0 +1,56 @@
+Ngomik.com adalah sebuah platform untuk mempublikasikan komik bagi komunitas. Di ngomik.com, user bisa mempublikasikan komik, berinteraksi via komentar, dan saling mem-follow dengan user lainnya. FYI, sebuah komik bisa memiliki banyak chapter.
+
+Anda diminta untuk menuliskan deklarasi routes dalam framework Laravel, dengan daftar halaman dan fungsionalitas seperti berikut:
+
+
+//halaman publik untuk menampilkan seluruh judul komik
+Route::get('/ngomik', 'NgomikController@index');
+
+//halaman untuk menampilkan daftar chapter dari suatu komik
+Route::get('/ngomik/{id}/chapter', 'ChapterController@index');
+-Route::get('/ngomik-chapter/{ngomik_id}', 'NgomikChapterController@index');
+
+//halaman untuk membaca chapter komik
+Route::get('/ngomik/{id}/chapter/{id}', 'ChapterController@show');
+-Route::get('/ngomik-chapter/{ngomik_id}/{id}', 'NgomikChapterController@index');
+
+Halaman profil user yang terdiri dari:
+	//Halaman yang menampilkan daftar komik yang pernah diupload
+	Route::get('/ngomik/myupload', 'MyUploadController@index');
+	-Route::get('/my-upload', 'AuthorNgomikController@index');
+
+	//Halaman yang menampilkan daftar follower
+	Route::get('/myfollower', 'MyFollowerController@index');
+
+User bisa membuat sebuah series komik baru
+	//mengedit dan menghapus komiknya sendiri
+	Route::get('/ngomik/myseries/create', 'MySeriesController@create');
+	-Route::get('/my-ngomik/create', 'MyNgomikController@index@create');
+	Route::post('/ngomik/myseries', 'MySeriesController@store');
+	-Route::get('/my-ngomik/create', 'MyNgomikController@index@store');
+
+	//edit dan delete series komik baru : butuh id_komik
+	Route::get('/ngomik/myseries/{id}/edit', 'MySeriesController@edit');
+	-Route::get('/myseries/{id}/edit', 'MySeriesController@edit');
+	Route::put('/ngomik/myseries/{id}', 'MySeriesController@update');
+	-Route::put('/myseries/{id}', 'MySeriesController@update');
+
+	Route::delete('/ngomik/myseries/{id}', 'MySeriesController@destroy');
+
+mengedit dan menghapus chapter
+	Route::get('/ngomik/myseries/{id}/mychapter/{id}/edit', 'MyChapterController@edit');
+	Route::put('/ngomik/myseries/{id}/mychapter/{id}', 'MyChapterController@update');
+	Route::delete('/ngomik/myseries/{id}/mychapter/{id}', 'MyChapterController@destroy');
+
+//mem-follow user lain
+Route::post('/follow', 'FollowController@store');
+
+//meng-unfollow user lain
+Route::delete('/follow/{id}', 'FollowController@destroy');
+
+//memberikan komentar ke suatu chapter (chapter, bukan komik)
+Route::get('/ngomik/{id}/chapter/{id}/komentar/create', 'MySeriesController@create');
+Route::post('/ngomik/{id}/chapter/{id}/komentar', 'MySeriesController@store');
+
+//menghapus komentarnya sendiri
+Route::delete('/ngomik/mykometar/{id}', 'MyKomentarController@destroy');
